@@ -18,7 +18,7 @@ module.exports = new CommandBuilder({
             
             let arg
 
-            const command = client.commands.get(args[0].toLowerCase()) || client.commands.find(c => c.aliases?.includes(args[0].toLowerCase()))
+            const command = client.commands.get(args[0].toLowerCase()) || client.commands.find(c => c.alias?.includes(args[0].toLowerCase()))
             
             if (!command) return message.channel.send({ content: "Invalid command name" })
 
