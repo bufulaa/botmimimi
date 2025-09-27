@@ -1,9 +1,14 @@
+const CommandBuilder = require("../../classes/CommandBuilder")
 const CustomEmbed = require("../../classes/CustomEmbed")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "steal",
-    arguments: [{label: "UID"}],
-    run: async (client, message, args) => {
+    cmdargs: [
+        {
+            label: "UID"
+        }
+    ],
+    run: async ({ client, message, args }) => {
 
         let target
 
@@ -25,5 +30,6 @@ module.exports = {
             content: `[Source URL](${pict})`
         })
         })
+        
     }
-}
+})

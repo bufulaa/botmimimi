@@ -1,14 +1,19 @@
 const CustomEmbed = require("../../classes/CustomEmbed")
 const wrongmessage = require("../../utils/wrongMessage")
 const assets = require("../../json/assets.json")
+const CommandBuilder = require("../../classes/CommandBuilder")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "nuke",
-    aliases: ["frei"],
-    arguments: [{label: "amount"}],
+    alias: ["frei"],
+    cmdargs: [
+        {
+            label: "amount"
+        }
+    ],
     reqargs: 1,
-    run: async (client, message, args) => {
-        
+    run: async ({ message, args }) => {
+
         if (!parseInt(args[0])) return wrongmessage()
 
         const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+"f")
@@ -37,4 +42,4 @@ module.exports = {
         }
 
     }
-}
+})

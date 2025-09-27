@@ -1,10 +1,16 @@
+const CommandBuilder = require("../../classes/CommandBuilder")
 const CustomEmbed = require("../../classes/CustomEmbed")
 const wrongmessage = require("../../utils/wrongMessage")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "dice",
-    arguments: [{label: "amount 1-3"}],
-    run: (client, message, args) => {
+    cmdargs: [
+        {
+            label: "amount",
+            options: ["1", "2", "3"]
+        }
+    ],
+    run: async ({ message, args }) => {
 
         if (parseInt(args[0])) args[0] = parseInt(args[0])
 
@@ -24,5 +30,6 @@ module.exports = {
         }
     
         message.channel.send({ embeds: [embed], content: `You rolled a total of ${total}!` })
+
     }
-}
+})

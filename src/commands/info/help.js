@@ -1,23 +1,31 @@
 const CustomEmbed = require("../../classes/CustomEmbed")
+const CommandBuilder = require("../../classes/CommandBuilder")
 const capitalizeFirstLetter = require("../../utils/capitalizeFirstLetter")
 const argsToText = require("../../utils/argsToText")
 const customEmojis = require("../../json/emojis.json")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "help",
-    aliases: ["args"],
-    arguments: [{label: "command"}],
-    run: async (client, message, args) => {
+    alias: ["args"],
+    cmdargs: [
+        {
+            label: "command"
+        }
+    ],
+    run: async ({ client, message, args }) => {
         
         if (args[0]) {
+            
             let arg
+
             const command = client.commands.get(args[0].toLowerCase()) || client.commands.find(c => c.aliases?.includes(args[0].toLowerCase()))
+            
             if (!command) return message.channel.send({ content: "Invalid command name" })
 
-            if (command?.arguments) arg = command.arguments
+            if (command?.cmdargs) arg = command.cmdargs
 
             const cmdDetailsEmbed = new CustomEmbed()
-            .setTitle(`Usage: \`${process.env.PREFIX}${command.name}\` ${command?.arguments ? argsToText(arg) : ""}`)
+            .setTitle(`Usage: \`${process.env.PREFIX}${command.name}\` ${command?.cmdargs ? argsToText(arg) : ""}`)
             .setFooter({ text: "Note that some arguments may be optional." })
         
             if(arg) {
@@ -32,12 +40,13 @@ module.exports = {
                 })
             }
 
-            message.channel.send({ embeds: [cmdDetailsEmbed] })
-            return
+            return message.channel.send({ embeds: [cmdDetailsEmbed] })
+        
         }
         
         const allCmdEmbed = new CustomEmbed()
         .setThumbnail(client.user.displayAvatarURL())
+
         const cmdByDir = new Object()
 
         client.commands.forEach(cmd => {
@@ -56,6 +65,6 @@ module.exports = {
         }
 
         message.channel.send({ embeds: [allCmdEmbed], content: `To see detailed guide of a certain command you may use \`${process.env.PREFIX}help\` \`<command>\`` })
-    
+
     }
-}
+})

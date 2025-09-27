@@ -1,10 +1,16 @@
 const { exec } = require("child_process")
+const CommandBuilder = require("../../classes/CommandBuilder")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "pm2",
-    arguments: [{label: "action", options: ["stop", "restart", "reboot"]}],
+    cmdargs: [
+        {
+            label: "action",
+            options: ["stop", "restart", "reboot"]
+        }
+    ],
     reqargs: 1,
-    run: async (client, message, args) => {
+    run: async ({ message, args }) => {
 
         if (!process.env.PM2_ID) return message.channel.send({ content: "You dont have PM2_ID set up in dotenv." })
 
@@ -26,5 +32,4 @@ module.exports = {
         }
 
     }
-    
-}
+})

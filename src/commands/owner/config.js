@@ -1,15 +1,16 @@
+const CommandBuilder = require("../../classes/CommandBuilder")
 const read = require("../../utils/read")
 const write = require("../../utils/write")
 const wrongMessage = require("../../utils/wrongMessage")
 
-module.exports = {
+module.exports = new CommandBuilder({
     name: "config",
-    arguments: [
+    cmdargs: [
         {label: "action", options: ["set", "get"]},
         {label: "value"},
         {label: "set as? (for \"set\")"}
     ],
-    run: async (client, message, args) => {
+    run: async ({ message, args }) => {
         
         const config = "src/json/bot_config.json"
         const rcfg = read(config)
@@ -34,4 +35,4 @@ module.exports = {
         else return wrongMessage()
 
     }
-}
+})

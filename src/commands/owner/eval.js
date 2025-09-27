@@ -1,9 +1,15 @@
-module.exports = {
+const CommandBuilder = require("../../classes/CommandBuilder")
+
+module.exports = new CommandBuilder({
     name: "eval",
-    aliases: ["e", "evaluate"],
-    arguments: [{label: "code"}],
+    alias: ["e", "evaluate"],
+    cmdargs: [
+        {
+            label: "code"
+        }
+    ],
     reqargs: 1,
-    run: async (client, message, args) => {
+    run: async ({ message, args }) => {
 
         const clean = text => {
 
@@ -26,6 +32,6 @@ module.exports = {
             message.reply({ content: `\`\`\`js\n${clean(err)}\`\`\`` })
 
         }
-        
+
     }
-}
+})
