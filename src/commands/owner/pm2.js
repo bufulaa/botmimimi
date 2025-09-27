@@ -1,3 +1,5 @@
+const { exec } = require("child_process")
+
 module.exports = {
     name: "pm2",
     arguments: [
@@ -6,58 +8,24 @@ module.exports = {
     reqargs: 1,
     run: async (client, message, args) => {
 
+        if (!process.env.PM2_ID) return message.channel.send({ content: "You dont have PM2_ID set up in dotenv." })
 
+        args[0] = args[0].toLowerCase()
 
-    //     pm2.connect((err) => {
+        try {
+            if (args[0] == "restart" || args[0] == "reboot") {
+                message.channel.send({ content: "I'm rebooting..."})
+                exec(`pm2 restart ${process.env.PM2_ID}`)
+            }
 
-    //         console.log("Connected to PM2");
+            else if (args[0] == "stop") {
+                message.channel.send({ content: "Stopping process..."})
+                exec(`pm2 stop ${process.env.PM2_ID}`)
+            }
+        } catch  {
+            message.channel.send({ content: "An error occured." })
+        }
 
-    //         if (err) console.log(err)
-            
-    //         console.log(process.env.PM2_NAME)
-
-    //         if (args[0].toLowerCase() == "restart") {
-    //             console.log("TRIGGERED RESTART")
-
-    //             pm2.restart(0, (err) => {
-    //                 console.log("WON")
-    //                 if (err) {
-    //                     message.channel.send("An error has occured, please check logs.")
-    //                     console.log(err)
-    //                     console.log("TRIGGERED ERR")
-    //                 } else {
-    //                     message.channel.send("I'm restarting my process in PM2!")
-    //                     console.log("Process restarted:", proc)
-    //                     console.log("TRIGGERED PROC")
-    //                 }
-                        
-    //             })
-
-    //         }
-
-    //         if (args[0].toLowerCase() == "stop") {
-    //             console.log("TRIGGERED STOP")
-
-    //             pm2.stop(0, (err) => {
-    //                 console.log("WON")
-    //                 if (err) {
-    //                     message.channel.send("An error has occured, please check logs.")
-    //                     console.log(err)
-    //                     console.log("TRIGGERED ERR")
-    //                 } else {
-    //                     message.channel.send("I'm stopping my process in PM2!")
-    //                     console.log("Process stopped:", proc)
-    //                     console.log("TRIGGERED PROC")
-    //                 }
-                        
-    //             })
-
-    //         }
-
-    //         pm2.disconnect()
-    //     })
-
-    console.log("TRIGGERED")
     }
     
 }

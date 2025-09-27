@@ -17,7 +17,7 @@ module.exports = {
             if (command?.arguments) arg = command.arguments
 
             const cmdDetailsEmbed = new CustomEmbed()
-            .setTitle(`Usage: \`${client.config.prefix}${command.name}\` ${command?.arguments ? argsToText(arg) : ""}`)
+            .setTitle(`Usage: \`${process.env.PREFIX}${command.name}\` ${command?.arguments ? argsToText(arg) : ""}`)
             .setFooter({ text: "Note that some arguments may be optional." })
         
             if(arg) {
@@ -55,7 +55,7 @@ module.exports = {
             allCmdEmbed.addFields(field)
         }
 
-        message.channel.send({ embeds: [allCmdEmbed], content: `To see detailed guide of a certain command you may use \`${client.config.prefix}help\` \`<command>\`` })
+        message.channel.send({ embeds: [allCmdEmbed], content: `To see detailed guide of a certain command you may use \`${process.env.PREFIX}help\` \`<command>\`` })
     
     }
 }

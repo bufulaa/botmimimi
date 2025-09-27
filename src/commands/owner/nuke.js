@@ -9,7 +9,7 @@ module.exports = {
     reqargs: 1,
     run: async (client, message, args) => {
         if (!parseInt(args[0])) return wrongmessage()
-        const isFrei = message.content.toLowerCase().startsWith(client.config.prefix+"f")
+        const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+"f")
         
         const amount = parseInt(args[0])
 
