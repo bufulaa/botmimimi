@@ -2,7 +2,7 @@ const { exec } = require("child_process")
 const CommandBuilder = require("../../classes/CommandBuilder")
 
 module.exports = new CommandBuilder({
-    name: "pm2",
+    name: "systemctl",
     cmdargs: [
         {
             label: "action",
@@ -12,20 +12,20 @@ module.exports = new CommandBuilder({
     reqargs: 1,
     run: async ({ message, args }) => {
 
-        if (!process.env.PM2_ID) return message.channel.send({ content: "You dont have PM2_ID set up in dotenv." })
+        if (!process.env.SYSTEMCTL_SERVICE_NAME) return message.channel.send({ content: "You dont have PM2_ID set up in dotenv." })
 
         args[0] = args[0].toLowerCase()
 
         try {
             if (args[0] == "restart" || args[0] == "reboot") {
                 message.channel.send({ content: "I'm rebooting..."})
-                exec(`pm2 restart ${process.env.PM2_ID}`)
+                exec(`sudo systemctl restart ${process.env.SYSTEMCTL_SERVICE_NAME}`)
                 return
             }
 
             if (args[0] == "stop") {
                 message.channel.send({ content: "Stopping process..."})
-                exec(`pm2 stop ${process.env.PM2_ID}`)
+                exec(`sudo systemctl stop ${process.env.SYSTEMCTL_SERVICE_NAME}`)
             }
         } catch  {
             message.channel.send({ content: "An error occured." })
