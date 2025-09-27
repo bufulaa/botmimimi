@@ -29,7 +29,7 @@ module.exports = {
                     embeds: freiEmbed ? [freiEmbed] : [] 
                 }).then(notice => setTimeout(() => {
                     notice.delete().catch(() => {})
-                }, 5000))
+                }, 4150))
             })
         } catch (e) {
             message.channel.send({ content: `Failed while ${isFrei ? "Frei-ing" : "Nuking"} message(s)... did you do something wrong?`})
