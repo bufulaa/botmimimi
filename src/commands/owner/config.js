@@ -10,6 +10,7 @@ module.exports = {
         {label: "set as? (for \"set\")"}
     ],
     run: async (client, message, args) => {
+        
         const config = "src/json/bot_config.json"
         const rcfg = read(config)
 
@@ -31,5 +32,6 @@ module.exports = {
             message.channel.send({ content: `The value of ${args[1].toLowerCase()} has been changed to \`${args[2]}\`. I must be rebooted for the changes to apply.`})
         }
         else return wrongMessage()
+
     }
 }

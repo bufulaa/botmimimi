@@ -8,11 +8,11 @@ module.exports = {
     arguments: [{label: "amount"}],
     reqargs: 1,
     run: async (client, message, args) => {
-        if (!parseInt(args[0])) return wrongmessage()
-        const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+"f")
         
-        const amount = parseInt(args[0])
+        if (!parseInt(args[0])) return wrongmessage()
 
+        const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+"f")
+        const amount = parseInt(args[0])
         const toDelete = new Array()
 
         await message.channel.messages.fetch({ limit: amount + 1 }).then(msgs => msgs.map((_ignore, inex) => { toDelete.push(inex) }))

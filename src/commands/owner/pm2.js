@@ -2,9 +2,7 @@ const { exec } = require("child_process")
 
 module.exports = {
     name: "pm2",
-    arguments: [
-        {label: "action", options: ["stop", "restart", "reboot"]},
-    ],
+    arguments: [{label: "action", options: ["stop", "restart", "reboot"]}],
     reqargs: 1,
     run: async (client, message, args) => {
 
@@ -16,9 +14,10 @@ module.exports = {
             if (args[0] == "restart" || args[0] == "reboot") {
                 message.channel.send({ content: "I'm rebooting..."})
                 exec(`pm2 restart ${process.env.PM2_ID}`)
+                return
             }
 
-            else if (args[0] == "stop") {
+            if (args[0] == "stop") {
                 message.channel.send({ content: "Stopping process..."})
                 exec(`pm2 stop ${process.env.PM2_ID}`)
             }
