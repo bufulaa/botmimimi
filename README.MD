@@ -8,12 +8,12 @@
 
 
 ## 🔧 Installation
-1. Clone this repo or Download as zip (You'll only need `main.cpp`)
+1. Clone this repo or Download as zip
 ```
 git clone https://github.com/bufulaa/botmimimi.git
 ```
 
-2. Install the required npm packages:
+2. Once you're running commands in the bot folder; install the required npm packages:
 ```
 npm i
 ```
