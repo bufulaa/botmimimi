@@ -9,12 +9,12 @@
 
 ## 🔧 Installation
 1. Clone this repo or Download as zip
-```
+```bash
 git clone https://github.com/bufulaa/botmimimi.git
 ```
 
 2. Once you're running commands in the bot folder; install the required npm packages:
-```
+```bash
 npm i
 ```
 3. Fill the missing dotenv values in `.env.example`:
@@ -33,7 +33,7 @@ PREFIX=!
 - `PREFIX` is used for botmimimi's command prefix, inserting `!` as `PREFIX` would make you run ping (or any command) as such: `!ping`
 
 5. Let Botmimimi breathe air:
-```
+```bash
 node .
 ```
 
