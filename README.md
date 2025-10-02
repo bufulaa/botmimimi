@@ -31,7 +31,7 @@ PREFIX=!
 - `SYSTEMCTL_SERVICE_NAME` this is referring to the service name of `.service` file. Let's say your service file is `bot.service` then you'd want to fill `bot` for your `SYSTEMCTL_SERVICE_NAME` (this only applies if you want to run this using `systemctl`, if you're not using it then just remove this line and also delete anything related to `systemctl` system-wide
 
 - `PREFIX` is used for botmimimi's command prefix, inserting `!` as `PREFIX` would make you run ping (or any command) as such: `!ping`
-
+4. rename `.env.example` to `.env`
 5. Let Botmimimi breathe air:
 ```bash
 node .
