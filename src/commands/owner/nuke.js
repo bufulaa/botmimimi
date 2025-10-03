@@ -1,14 +1,14 @@
-const CustomEmbed = require("../../classes/CustomEmbed")
-const wrongmessage = require("../../utils/wrongMessage")
-const assets = require("../../json/assets.json")
-const CommandBuilder = require("../../classes/CommandBuilder")
+const CustomEmbed = require('../../classes/CustomEmbed')
+const wrongmessage = require('../../utils/wrongMessage')
+const assets = require('../../json/assets.json')
+const CommandBuilder = require('../../classes/CommandBuilder')
 
 module.exports = new CommandBuilder({
-    name: "nuke",
-    alias: ["frei"],
+    name: 'nuke',
+    alias: ['frei'],
     cmdargs: [
         {
-            label: "amount"
+            label: 'amount'
         }
     ],
     reqargs: 1,
@@ -16,7 +16,7 @@ module.exports = new CommandBuilder({
 
         if (!parseInt(args[0])) return wrongmessage()
 
-        const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+"f")
+        const isFrei = message.content.toLowerCase().startsWith(process.env.PREFIX+'f')
         const amount = parseInt(args[0])
         const toDelete = new Array()
 
@@ -28,16 +28,16 @@ module.exports = new CommandBuilder({
 
         try {
             message.channel.bulkDelete(toDelete).then(msgs => {
-                msgs.size ? msgs.size = 1 : ""
+                msgs.size ? msgs.size = 1 : ''
                 message.channel.send({
-                    content: `${isFrei ? "Frei'd" : "Nuked"} the ${msgs.size > 1 ? `last ${msgs.size} messages` : "last message"} ☢️`,
+                    content: `${isFrei ? 'Frei\'d' : 'Nuked'} the ${msgs.size > 1 ? `last ${msgs.size} messages` : 'last message'} ☢️`,
                     embeds: freiEmbed ? [freiEmbed] : [] 
                 }).then(notice => setTimeout(() => {
                     notice.delete().catch(() => {})
                 }, 4150))
             })
         } catch (e) {
-            message.channel.send({ content: `Failed while ${isFrei ? "Frei-ing" : "Nuking"} message(s)... did you do something wrong?`})
+            message.channel.send({ content: `Failed while ${isFrei ? 'Frei-ing' : 'Nuking'} message(s)... did you do something wrong?`})
             console.log(e)
         }
 

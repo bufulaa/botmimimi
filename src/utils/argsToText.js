@@ -1,5 +1,5 @@
-module.exports = (cmdargument) => {
-    let retval = new Array()
-    cmdargument.forEach((args) => retval.push(`\`<${args.label}>\``))
-    return retval.join(" ")
+module.exports = (cmdArguments) => {
+    let returnValue = new Array()
+    cmdArguments.forEach((args) => returnValue.push(`\`<${args.label}>\``))
+    return returnValue.join(' ')
 }

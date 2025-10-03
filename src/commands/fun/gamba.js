@@ -1,24 +1,24 @@
-const CommandBuilder = require("../../classes/CommandBuilder");
+const CommandBuilder = require('../../classes/CommandBuilder');
 
 module.exports = new CommandBuilder({
 
     // add last used command so its a cd command :gamba:
     
-    name: "gamba",
+    name: 'gamba',
     cmdargs: [
         {
-            label: "Number",
-            options: ["0 - 100"]
+            label: 'Number',
+            options: ['0 - 100']
         }
     ],
     reqargs: 1,
     run: ({ message, args }) => {
 
-        if (isNaN(parseInt(args[0]))) return message.channel.send({ content: "use numbers dumbass" });
+        if (isNaN(parseInt(args[0]))) return message.channel.send({ content: 'use numbers dumbass' });
         
         const gambakey = Math.floor(Math.random() * 100)
         
-        message.channel.send({ content: `You rolled ${gambakey.toString()}! ${gambakey == parseInt(args[0]) ? "you won!" : "better luck next time pipsqueak"}` })
+        message.channel.send({ content: `You rolled ${gambakey.toString()}! ${gambakey == parseInt(args[0]) ? 'you won!' : 'better luck next time pipsqueak'}` })
 
     }
 })

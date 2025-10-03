@@ -1,3 +1,3 @@
-const client = require("../../index")
+const client = require('../../index')
 
-client.on("ready", () => console.log(`${client.user.username} is online`))
+client.on('ready', () => console.log(`Logged in as ${client.user.displayName}`))

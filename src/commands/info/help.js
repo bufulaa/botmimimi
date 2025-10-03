@@ -1,15 +1,14 @@
-const CustomEmbed = require("../../classes/CustomEmbed")
-const CommandBuilder = require("../../classes/CommandBuilder")
-const capitalizeFirstLetter = require("../../utils/capitalizeFirstLetter")
-const argsToText = require("../../utils/argsToText")
-const customEmojis = require("../../json/emojis.json")
+const CustomEmbed = require('../../classes/CustomEmbed')
+const CommandBuilder = require('../../classes/CommandBuilder')
+const capitalizeFirstLetter = require('../../utils/capitalizeFirstLetter')
+const argsToText = require('../../utils/argsToText')
+const customEmojis = require('../../json/emojis.json')
 
 module.exports = new CommandBuilder({
-    name: "help",
-    alias: ["args"],
+    name: 'help',
     cmdargs: [
         {
-            label: "command"
+            label: 'command'
         }
     ],
     run: async ({ client, message, args }) => {
@@ -20,22 +19,22 @@ module.exports = new CommandBuilder({
 
             const command = client.commands.get(args[0].toLowerCase()) || client.commands.find(c => c.alias?.includes(args[0].toLowerCase()))
             
-            if (!command) return message.channel.send({ content: "Invalid command name" })
+            if (!command) return message.channel.send({ content: 'Invalid command name' })
 
             if (command?.cmdargs) arg = command.cmdargs
 
             const cmdDetailsEmbed = new CustomEmbed()
-            .setTitle(`Usage: \`${process.env.PREFIX}${command.name}\` ${command?.cmdargs ? argsToText(arg) : ""}`)
-            .setFooter({ text: "Note that some arguments may be optional." })
+            .setTitle(`Usage: \`${process.env.PREFIX}${command.name}\` ${command?.cmdargs ? argsToText(arg) : ''}`)
+            .setFooter({ text: 'Note that some arguments may be optional.' })
         
             if(arg) {
                 let field = new Object()
                 let value = new Array()
                 arg.forEach(x => {
                     if (!x?.options) return
-                    x.options.forEach(y => value.push(typeof y === "object" ? y.join("/") : y))
+                    x.options.forEach(y => value.push(typeof y === 'object' ? y.join('/') : y))
                     field.name = `Options for <${x.label}>`
-                    field.value = value.map(z => ` \`${z}\``).join(", ")
+                    field.value = value.map(z => ` \`${z}\``).join(', ')
                     cmdDetailsEmbed.addFields(field)
                 })
             }
@@ -55,12 +54,12 @@ module.exports = new CommandBuilder({
         })
 
         for (const dir in cmdByDir) {
-            if (dir == "owner" && !process.env.OWNER_ID.split(",").includes(message.author.id)) continue
+            if (dir == 'owner' && !process.env.OWNER_ID.split(',').includes(message.author.id)) continue
             let field = new Object
-            field.name = `[ ${customEmojis["cat_"+dir]} ] ${capitalizeFirstLetter(dir)}`
+            field.name = `[ ${customEmojis['cat_'+dir]} ] ${capitalizeFirstLetter(dir)}`
             field.value = new Array()
             cmdByDir[dir].forEach(cmd => field.value.push(`\`${cmd.name}\``))
-            field.value = field.value.join(", ")
+            field.value = field.value.join(', ')
             allCmdEmbed.addFields(field)
         }
 
