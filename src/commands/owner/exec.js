@@ -1,8 +1,9 @@
 const CommandBuilder = require('../../classes/CommandBuilder')
+const { execSync } = require("child_process")
 
 module.exports = new CommandBuilder({
-    name: 'eval',
-    alias: ['ev', 'evaluate'],
+    name: 'exec',
+    alias: ['ex', 'execute'],
     cmdargs: [
         {
             label: 'code'
@@ -21,13 +22,12 @@ module.exports = new CommandBuilder({
 
         try {
 
-            const code = args.join(' ')
-            let evaluated = eval(code)
+            const command = args.join(' ')
+            let executed = execSync(command).toString()
 
-            if (typeof evaluated !== 'string') evaluated = require('util').inspect(evaluated)
-            if (!code) message.reply({ content: 'You haven\'t specified the code you want to run.' })
-
-            message.reply({ content: `\`\`\`js\n${clean(evaluated)}\`\`\`` })
+            if (!command) return message.reply({ content: 'You haven\'t specified the code you want to run.' })
+                
+            message.reply({ content: `\`\`\`js\n${clean(executed)}\`\`\`` })
 
         } catch (err) {
 
