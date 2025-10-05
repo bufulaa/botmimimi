@@ -3,6 +3,7 @@ const CustomEmbed = require('../../classes/CustomEmbed')
 
 module.exports = new CommandBuilder({
     name: 'steal',
+    alias: [ 'avatar' ],
     cmdargs: [
         {
             label: 'UID'

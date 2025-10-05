@@ -29,7 +29,7 @@ client.on('messageCreate', async (message) => {
     if (command.reqargs && args.length < command.reqargs)
         return wrongmessage('Please complete the missing arguments!')
 
-    await command.run({ client, message, args})
+    await command.run({ client, message, args })
 
 })
 

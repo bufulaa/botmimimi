@@ -15,7 +15,7 @@ module.exports = new CommandBuilder({
         const clean = text => {
 
             if (typeof (text) === 'string') text = text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
-            text = require('../../utils/stringLimiter')(text, 4000, 1988)
+            text = require('../../utils/stringLimiter')(text, 2000  , 1988)
             return text
             
         }
@@ -27,11 +27,11 @@ module.exports = new CommandBuilder({
 
             if (!command) return message.reply({ content: 'You haven\'t specified the code you want to run.' })
                 
-            message.reply({ content: `\`\`\`js\n${clean(executed)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`js\n${clean(executed)}\`\`\`` })
 
         } catch (err) {
 
-            message.reply({ content: `\`\`\`js\n${clean(err)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`js\n${clean(err)}\`\`\`` })
 
         }
 

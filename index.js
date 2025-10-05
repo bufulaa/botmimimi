@@ -9,4 +9,4 @@ module.exports = client
 require('dotenv').config()
 require('./src/handler')(client)
 
-client.login(process.env.TOKEN)             
+client.login(process.env.TOKEN)
