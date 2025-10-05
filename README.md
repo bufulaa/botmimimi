@@ -26,12 +26,12 @@ PREFIX=!
 ``` 
 - `YOUR_DISCORD_APPLICATION_TOKEN` can be obtained through [Discord Developer Portal](https://discord.com/developers/applications) and creating a new application
 
-- `OWNER_ID` is your [Discord User ID](https://support.discord.com/hc/articles/206346498), and is used for commands that only allows the owner of the bot (If user's ID matches `OWNER_ID`) it will grant them access
+- `OWNER_ID` is your [Discord User ID](https://support.discord.com/hc/articles/206346498), and is used for commands that only allows the owner of the bot (If user's ID matches `OWNER_ID` it will grant them access)
 
 - `SYSTEMCTL_SERVICE_NAME` this is referring to the service name of `.service` file. Let's say your service file is `bot.service` then you'd want to fill `bot` for your `SYSTEMCTL_SERVICE_NAME` (this only applies if you want to run this using `systemctl`, if you're not using it then just remove this line and also delete anything related to `systemctl` system-wide
 
 - `PREFIX` is used for botmimimi's command prefix, inserting `!` as `PREFIX` would make you run ping (or any command) as such: `!ping`
-4. rename `.env.example` to `.env`
+4. Rename `.env.example` to `.env` to apply
 5. Let Botmimimi breathe air:
 ```bash
 node .
