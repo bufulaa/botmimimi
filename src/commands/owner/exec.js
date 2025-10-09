@@ -1,5 +1,6 @@
 const CommandBuilder = require('../../classes/CommandBuilder')
-const { execSync } = require("child_process")
+const filter = require('../../utils/codeBlockfilter')
+const execPromise = require('util').promisify(require('child_process').exec)
 
 module.exports = new CommandBuilder({
     name: 'exec',
@@ -10,28 +11,21 @@ module.exports = new CommandBuilder({
         }
     ],
     reqargs: 1,
-    run: async ({ client, message, args }) => {
-
-        const clean = text => {
-
-            if (typeof (text) === 'string') text = text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
-            text = require('../../utils/stringLimiter')(text, 2000  , 1988)
-            return text
-            
-        }
+    run: async ({ message, args }) => {
 
         try {
 
             const command = args.join(' ')
-            let executed = execSync(command).toString()
-
             if (!command) return message.reply({ content: 'You haven\'t specified the code you want to run.' })
-                
-            message.channel.send({ content: `\`\`\`js\n${clean(executed)}\`\`\`` })
+
+            const { stdout, stderr } = await execPromise(command)
+            let retVal = stderr || stdout
+
+            message.channel.send({ content: `\`\`\`js\n${filter(retVal)}\`\`\`` })
 
         } catch (err) {
 
-            message.channel.send({ content: `\`\`\`js\n${clean(err)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`js\n${filter(err)}\`\`\`` })
 
         }
 

@@ -1,4 +1,5 @@
 const CommandBuilder = require('../../classes/CommandBuilder')
+const filter = require('../../utils/codeBlockfilter')
 
 module.exports = new CommandBuilder({
     name: 'eval',
@@ -11,27 +12,20 @@ module.exports = new CommandBuilder({
     reqargs: 1,
     run: async ({ client, message, args }) => {
 
-        const clean = text => {
-
-            if (typeof (text) === 'string') text = text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
-            text = require('../../utils/stringLimiter')(text, 2025, 1988)
-            return text
-            
-        }
-
         try {
 
             const code = args.join(' ')
+            if (!code) return message.reply({ content: 'You haven\'t specified the code you want to run.' })
+
             let evaluated = eval(code)
 
             if (typeof evaluated !== 'string') evaluated = require('util').inspect(evaluated)
-            if (!code) message.reply({ content: 'You haven\'t specified the code you want to run.' })
 
-            message.channel.send({ content: `\`\`\`js\n${clean(evaluated)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`js\n${filter(evaluated)}\`\`\`` })
 
         } catch (err) {
 
-            message.channel.send({ content: `\`\`\`js\n${clean(err)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`js\n${filter(err)}\`\`\`` })
 
         }
 
