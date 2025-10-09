@@ -10,7 +10,7 @@ module.exports = new CommandBuilder({
     reqargs: 1,
     run: async ({ message, args }) => {
 
-        if (!this.cmdargs[0].options.includes(args[0].toLowerCase())) return wrongMessage('Invalid options')
+        if (!['restart', 'stop'].includes(args[0].toLowerCase())) return wrongMessage('Invalid options')
 
         try {
             message.channel.send({ content: `Attempting to \`${args[0]}\` systemctl service: ${process.env.SYSTEMCTL_SERVICE_NAME}` })
