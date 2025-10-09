@@ -1,0 +1,24 @@
+const CommandBuilder = require('../../classes/CommandBuilder')
+const { execSync } = require("child_process")
+const wrongMessage = require('../../utils/wrongMessage')
+
+module.exports = new CommandBuilder({
+    name: 'systemctl',
+    cmdargs: [
+        {label: 'action', options: ['restart', 'stop']},
+    ],
+    reqargs: 1,
+    run: async ({ message, args }) => {
+
+        if (!this.cmdargs[0].options.includes(args[0].toLowerCase())) return wrongMessage('Invalid options')
+
+        try {
+            message.channel.send({ content: `Attempting to \`${args[0]}\` systemctl service: ${process.env.SYSTEMCTL_SERVICE_NAME}` })
+            execSync(`echo ${process.env.ROOT_PASSWORD} | sudo -S systemctl ${args[0]} ${process.env.SYSTEMCTL_SERVICE_NAME}`)
+        } catch (err) {
+            console.log(err)
+            message.channel.send({ content: 'Something went wrong.' })
+        }
+
+    }
+})
