@@ -21,11 +21,11 @@ module.exports = new CommandBuilder({
             const { stdout, stderr } = await execPromise(command)
             let retVal = stderr || stdout
 
-            message.channel.send({ content: `\`\`\`js\n${filter(retVal)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`\n${filter(retVal)}\`\`\`` })
 
         } catch (err) {
 
-            message.channel.send({ content: `\`\`\`js\n${filter(err)}\`\`\`` })
+            message.channel.send({ content: `\`\`\`\n${filter(err)}\`\`\`` })
 
         }
 
