@@ -1,7 +1,7 @@
 const CustomEmbed = require('../../classes/CustomEmbed')
+const CommandBuilder = require('../../classes/CommandBuilder')
 const wrongmessage = require('../../utils/wrongMessage')
 const assets = require('../../json/assets.json')
-const CommandBuilder = require('../../classes/CommandBuilder')
 
 module.exports = new CommandBuilder({
     name: 'nuke',
